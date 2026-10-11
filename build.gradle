@@ -1,0 +1,28 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.4.2'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+allprojects {
+    tasks.configureEach { task ->
+        if (task.class.name.contains('Aapt2Compile') || task.name.contains('process') || task.name.contains('parse')) {
+            task.doFirst {
+                if (task.hasProperty('aapt2Executable')) {
+                    task.aapt2Executable = "$System.env.PREFIX/bin/aapt2"
+                }
+            }
+        }
+    }
+}
