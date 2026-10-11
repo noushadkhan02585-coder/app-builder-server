@@ -32,8 +32,8 @@ jobs:
         run: |
           node config-injector.js "${{ github.event.inputs.firebase_id || github.event.client_payload.firebase_id }}" "${{ github.event.inputs.agora_id || github.event.client_payload.agora_id }}"
 
-      - name: Make Gradlew Executable
-        run: chmod +x gradlew
+      - name: Auto Generate Official Gradlew Engine
+        run: gradle wrapper --gradle-version 8.4
 
       - name: Build APK with Gradle
         run: ./gradlew assembleDebug
