@@ -25,11 +25,13 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Create Dummy Injector if Missing
-        run: |
-          if [ ! -f config-injector.js ]; then
-            echo "const fs = require('fs'); console.log('Simulating key injection:', process.argv[2], process.argv[3]);" > config-injector.js
-          fi
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node Modules
+        run: npm install fs-extra
 
       - name: Inject Keys (Firebase & Agora)
         run: |
